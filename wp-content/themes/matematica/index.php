@@ -113,7 +113,7 @@ get_sidebar();?>
 		</div>
 
 		<div id="projects-my" class="content-block section">
-	<?php /*TODO*/ ?>
+
 		</div>
 		<div id="contacts-my" class="content-block section">
 			<div id="map"></div>
