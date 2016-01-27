@@ -14,7 +14,6 @@
 
 get_header();
 get_sidebar();?>
-
 	<div class="content" id="fullpage">
 		<div id="home-my" class="content-block section">
 			<div class="content-contener">
