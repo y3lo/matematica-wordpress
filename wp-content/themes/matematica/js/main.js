@@ -63,6 +63,7 @@ $(window).load(function(){
         resizePage();
     });
 
+
     $('#portfolio-list a').click(function(){
         $('.pageload').show();
         $.ajax(
@@ -114,6 +115,7 @@ $(window).load(function(){
             }
         )
     });
+
 
     var container = $('#portfolio-list');
 
@@ -211,11 +213,13 @@ $(window).load(function(){
     name = name.split('?');
     name = name[0];
 
+    // var url_src = $("ul#portfolio-list li a").attr("href");
+
     if(cur_url[cur_url.length - 2] == "project"){
 
         $.ajax(
             {
-                url : '/index2.php?type=project&task=view&id='+ name,
+                url : url_src,
 
                 success : function(html){
                     if(!$('#project-my')[0])
@@ -236,7 +240,7 @@ $(window).load(function(){
                     $(html).imagesLoaded(function(){
                         $('#fullpage').fullpage({
                             menu: '.navigation',
-                            anchors: ['home', 'ideas', 'experience', 'project', 'projects', 'team', 'contacts'],
+                            anchors: ['home', 'ideas', 'experience', 'project', 'projects', 'contacts'],
                             scrollOverflow: true,
                             touchSensitivity: 20,
                             afterLoad: function(anchorLink){
@@ -418,6 +422,7 @@ function projectLoaded(){
         this.sliderBlock.animate({"marginLeft": this.position + "px"},500);
         return this;
     }
+
 
     SL_Class.prototype.getcountslides = function(){
         this.lastslide = this.elements.length;

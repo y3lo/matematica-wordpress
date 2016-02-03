@@ -1,6 +1,0 @@
-    public $host = "new.matematica.com.ua";
-    public $db_host = "localhost";
-    public $db_name = "new_matematica";
-    public $db_user = "hbo";
-    public $db_password = "sxD_1557";
-    public static $default_lang = "ru";

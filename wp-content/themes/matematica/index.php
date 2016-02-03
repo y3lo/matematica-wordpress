@@ -18,44 +18,24 @@ get_sidebar();?>
 		<div id="home-my" class="content-block section">
 			<div class="content-contener">
 				<div class="text">
-					У самой сложной задачи всегда<br>есть простое решение
+					<?php _e("У самой сложной задачи всегда<br>есть простое решение","matematica"); ?>
 				</div>
 				<div class="title">
-					Математика
+					<?php _e("Математика","matematica");?>
 				</div>
 			</div>
 		</div>
 		<div id="ideas-my" class="content-block section">
 			<div class="content-contener">
-				<div class="title">
-					Фокус
-				</div>
 				<div class="text">
-					<div>
-						<img src="<?php bloginfo('template_directory')?>/images/logo-02.svg" alt=""/>
-						<br>
-						<span>Логотип</span>
-					</div>
-					<div>
-						<img src="<?php bloginfo('template_directory')?>/images/branding-01.svg" alt=""/>
-						<br>
-						<span>Брендинг</span>
-					</div>
-					<div>
-						<img src="<?php bloginfo('template_directory')?>/images/app-01.svg" alt=""/>
-						<br>
-						<span>Приложения</span>
-					</div>
-					<div>
-						<img src="<?php bloginfo('template_directory')?>/images/design-01.svg" alt=""/>
-						<br>
-						<span>Дизайн</span>
-					</div>
-					<div>
-						<img src="<?php bloginfo('template_directory')?>/images/web-01.svg" alt=""/>
-						<br>
-						<span>Web</span>
-					</div>
+					<?php $categories = get_terms('category', 'orderby=name&hide_empty=0&exclude=7&');
+					foreach ($categories as $cat): ?>
+						<div>
+							<img src="<?php bloginfo('template_directory')?>/images/<?php echo $cat->slug;?>.svg" alt=""/>
+							<br>
+							<span><?php _e($cat->name,"matematica")?></span>
+						</div>
+					<?php endforeach;?>
 				</div>
 			</div>
 		</div>
@@ -74,36 +54,38 @@ get_sidebar();?>
 							//    clockFace: 'DailyCounter'});
 						</script>
 						<?php
-						$years = date("Y")-2010;
-						$days = date('d')-1;
-						$months = date("m")-11;
+						$data = get_field("create-date");
+						$get_date = explode("/",$data);
+						$years = date("Y")-$get_date[0];
+						$days = date('d')-$get_date[1];
+						$months = date("m")-$get_date[2];
 						if($months<0){
 							$months += 12;
 							$years--;
 						}
 						?>
 						<div class="years">
-							<div class="time-text" id="years"><?=$years?></div>
-							<span>год</span>
+							<div class="time-text" id="years"><?=$years?><?php echo $get_date[0]?></div>
+							<span><?php _e("год","matematica")?></span>
 						</div>
 						<div class="months">
 							<div class="time-text" id="months"><?=$months?></div>
-							<span>месяц</span>
+							<span><?php _e("месяц","matematica")?></span>
 						</div>
 						<div class="days">
 							<div class="time-text" id="days"><?=$days?></div>
-							<span>день</span>
+							<span><?php _e("день","matematica")?></span>
 						</div>
 						<div class="hours">
 							<div class="time-text" id="hours"><?=date('H')?></div>
-							<span>час</span></div>
+							<span><?php _e("час","matematica")?></span></div>
 						<div class="minutes">
 							<div class="time-text" id="minutes"><?=date('i')?></div>
-							<span>минута</span>
+							<span><?php _e("минута","matematica")?></span>
 						</div>
 						<div class="seconds">
 							<div class="time-text" id="seconds"><?=date('s')?></div>
-							<span>секунда</span>
+							<span><?php _e("секунда","matematica")?></span>
 						</div>
 
 					</nobr>
@@ -112,7 +94,47 @@ get_sidebar();?>
 		</div>
 
 		<div id="projects-my" class="content-block section">
+			<div class="progect-page">
+				<div style="clear: both"></div>
 
+
+				<!-- Portfolio Filter -->
+				<div class="filters"><span>Ф И Л Ь Т Р Ы</span></div>
+				<ul id="portfolio-filter" class="list-inline">
+					<li class=""><a href="#" data-filter="*"><?php _e("Все","matematica");?></a></li>
+					<?php $all_cat = get_categories();?>
+					<?php foreach($all_cat as $cat_data):?>
+						<li class=""><a href="#" data-filter="<?php echo $cat_data->slug;?>"><?php _e($cat_data->name,"matematica")?></a></li>
+					<?php endforeach;?>
+				</ul>
+
+				<!-- Project List -->
+				<div style="clear: both"></div>
+				<div style="clear: both"></div>
+				<ul id="portfolio-list" class="project-list">
+					<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+						<?php $category = get_the_category();?>
+						<li class="<?php foreach($category as $cat){echo $cat->slug." ";}?>">
+							<a href="<?php the_permalink()?>">
+								<img src="<?php the_post_thumbnail_url();?>" alt="">
+								<div class="portfolio-item-content">
+									<div class="wrapper">
+										<div class="inner">
+											<div class="header"><?php the_title();?></div>
+											<div class="seperator"></div>
+											<p class="body">
+												<?php foreach($category as $cat):?>
+													<?php echo $cat->name;?>
+												<?php endforeach;?>
+											</p>
+										</div>
+									</div>
+								</div>
+							</a>
+						</li>
+					<?php endwhile; endif; ?>
+				</ul>
+			</div>
 		</div>
 		<div id="contacts-my" class="content-block section">
 			<div id="map"></div>
@@ -120,7 +142,7 @@ get_sidebar();?>
 				<div class="content-contener">
 					<div class="title" style="color: #fff;text-align: left;"><?bloginfo("name")?></div>
 					<div class="text" style="color: #fff;text-align: left;">
-						Украина<br>г. Запорожье, 69002<br>ул. Красногвардейская, 40 оф 507<br>info@matematica.com.ua<br><br><a href="tel:+380933443326">+38 093 344 33 26</a>
+						<?php _e("Украина<br>г. Запорожье, 69002<br>ул. Красногвардейская, 40 оф 507<br>info@matematica.com.ua<br><br><a href=\"tel:+380933443326\">+38 093 344 33 26</a>","matematica"); ?>
 					</div>
 				</div>
 			</div>

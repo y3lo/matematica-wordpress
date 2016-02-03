@@ -19,8 +19,7 @@
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=0.6, user-scalable=no">
-	<link rel="stylesheet" href="<?php bloginfo('template_directory')?>/css/main.css"/>
-	<link rel="stylesheet" href="<?php bloginfo('template_directory')?>/css/TimeCircles.css" />
+	<link rel="stylesheet" href="<?php bloginfo('template_directory')?>/TimeCircles.css" />
 
 	<script>
 		var datesInMonth = <?=Date('t')?>;
@@ -42,7 +41,7 @@
 		function initialize() {
 			var mapOptions = {
 				center: new google.maps.LatLng(47.820794,35.168494),
-				zoom: 15
+				zoom: <?php echo get_field("zoom")?get_field("zoom"):15;?>
 			};
 			var map = new google.maps.Map(document.getElementById("map"),
 				mapOptions);
